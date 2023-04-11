@@ -1,0 +1,121 @@
+<meta charset='utf-8' />
+<script src='https://unpkg.com/vue'></script>
+<link href="ex14.css" rel="stylesheet" />
+
+<div id="app">
+    <div id="boxBarra">
+        <div id="boxProg">
+
+        </div>
+        <div class="prog" :style="{'width':progresso + '%'}"></div>
+        <p>{{progresso.toFixed(2)}}</p>
+    </div>
+    <hr />
+    <div id="caixas">
+        <div v-for="pessoa in pessoas" class="cxPessoa" :class="pessoa.ativo ? 'ativo' :'inativo'" @click = "pessoa.ativo = !pessoa.ativo">
+            <h3>{{pessoa.nome}}</h3>
+            <h5>{{pessoa.cargo}}</h5>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            pessoas: [
+                {nome: 'João da Silva', cargo: 'Supervisor', ativo: true},
+                {nome: 'Ana dos Santos', cargo: 'Gerente', ativo: true},
+                {nome: 'Caio de Costas', cargo: 'Operador', ativo: true},
+                {nome: 'Salvio Pinola', cargo: 'Operador', ativo: true},
+                {nome: 'Diogo Cascalho', cargo: 'Caixa', ativo: true},
+                {nome: 'Maria dos Anjos', cargo: 'Operador', ativo: true}
+            ]
+        },
+        computed: {
+            progresso(){
+                let marcados = this.pessoas.filter(p => p.ativo).length
+
+                return (marcados*100)/ this.pessoas.length
+            }
+        }
+    })
+</script>
+
+<style>
+body {
+    font-family: Verdana, sans-serif;
+}
+#header {
+    display: flex;
+    justify-content: space-between;
+} 
+button {
+    background-color: #922;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    float: right
+}
+#boxBarra {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    margin: 0 auto;
+    width: 80%;
+}
+#boxBarra p {
+    position: absolute;
+    top:7px;
+    left: 0px;
+    right: 0px;
+    margin: 0px;
+}
+#boxProg {
+    
+    height: 30px;
+    border: 1px solid #333;
+    text-align: center;
+}
+.prog{
+    position:absolute;
+    left:0;
+    top:0;
+    background-color: rgb(32, 131, 56);
+    height: 100%
+}
+.progresso {
+    height: 100%;
+    background-color: #82a9db;
+    color: #fff;
+    width:0%;
+}
+#caixas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.cxPessoa {
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px #888;
+    padding: 15px;
+    margin: 5px;
+}
+.cxPessoa p, .cxPessoa h3 {
+    margin: 3px;
+}
+.ativo {
+    background-color: #acf;
+}
+.inativo {
+    background-color: #faa;
+}
+
+</style>
